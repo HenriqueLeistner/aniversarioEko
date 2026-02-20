@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>EkoBrazil | Aniversariantes de Hoje</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Estilos principais -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Cabeçalho com identidade visual da EkoBrazil -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo">
+          <!-- Substitua o caminho abaixo pelo local onde você salvar a logo dentro do projeto -->
+          <!-- Ex.: salve como ./assets/ekobrazil-logo.png -->
+          <img
+            src="assets/ekobrazil-logo.png"
+            alt="EkoBrazil - Inteligência Ecológica"
+            class="logo-img"
+          >
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="header-pill">Painel corporativo</span>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="app-main">
+      <!-- Título e descrição -->
+      <section class="page-heading">
+        <div>
+          <h1>Aniversariantes de Hoje</h1>
+          <p class="page-subtitle">
+            Visualize rapidamente quem está comemorando hoje e envie uma mensagem personalizada de
+            aniversário via WhatsApp com apenas um clique.
+          </p>
+        </div>
+      </section>
+
+      <!-- Barra de ferramentas: busca, importação, data de hoje, contador -->
+      <section class="toolbar">
+        <div class="toolbar-left">
+          <label for="searchInput" class="field-label">Buscar por nome</label>
+          <div class="search-wrapper">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              id="searchInput"
+              type="text"
+              class="search-input"
+              placeholder="Digite o nome do colaborador..."
+              autocomplete="off"
+            >
+          </div>
+
+          <!-- Ações relacionadas à base de dados -->
+          <div class="import-area">
+            <button type="button" id="importButton" class="import-button">
+              <span class="import-icon" aria-hidden="true">📁</span>
+              <span>Importar relatório</span>
+            </button>
+            <!-- Campo de arquivo real (fica oculto) -->
+            <input
+              id="reportInput"
+              type="file"
+              accept=".json,.csv,.txt"
+              class="file-input-hidden"
+            >
+            <p class="import-hint">
+              Use um arquivo JSON ou CSV com colunas
+              <strong>nome</strong>, <strong>telefone</strong>, <strong>data_nascimento</strong> (DD/MM).
+            </p>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <div class="today-badge" aria-label="Data de referência">
+            <span class="today-label">Hoje</span>
+            <span id="todayDate" class="today-date">--/--</span>
+          </div>
+
+          <!-- Escolha manual de data para adiantar aniversários -->
+          <div class="date-selector">
+            <label for="referenceDate" class="field-label field-label-inline">
+              Data de referência
+            </label>
+            <input
+              id="referenceDate"
+              type="date"
+              class="date-input"
+            >
+          </div>
+
+          <div class="counter" aria-live="polite">
+            <span id="birthdayCount" class="counter-number">0</span>
+            <span class="counter-label">aniversariantes na data</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Área de cards de aniversariantes -->
+      <!-- Seção para envio em lote (aparece conforme o dia) -->
+      <section id="bulkSendSection" class="bulk-section" aria-label="Envio em lote" hidden>
+        <h2>Envio programado</h2>
+        <p id="bulkDescription">Nenhuma ação agendada para a data selecionada.</p>
+        <div id="bulkTargetsList" class="bulk-targets-list"></div>
+        <div class="bulk-actions">
+          <button id="sendBulkButton" class="send-bulk-button" type="button">Enviar mensagens</button>
+          <button id="markSentButton" class="mark-sent-button" type="button">Marcar como enviado</button>
+        </div>
+      </section>
+
+      <section class="cards-section" aria-label="Lista de aniversariantes de hoje">
+        <!-- Mensagem quando NÃO há aniversários hoje -->
+        <p id="emptyState" class="empty-state" hidden>
+          Nenhum aniversariante hoje 🎂
+        </p>
+
+        <!-- Mensagem quando há aniversários hoje, mas a busca não encontrou ninguém -->
+        <p id="searchEmptyState" class="empty-state" hidden>
+          Nenhum aniversariante encontrado para esta busca.
+        </p>
+
+        <!-- Container dos cards (preenchido via JavaScript) -->
+        <div id="cardsContainer" class="cards-grid">
+          <!-- Cards gerados dinamicamente -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Rodapé simples corporativo -->
+    <footer class="app-footer">
+      <span class="footer-text">
+        EkoBrazil &copy; <span id="currentYear"></span> &middot; Plataforma interna de relacionamento com colaboradores
+      </span>
+    </footer>
+  </div>
+
+  <!-- Base de contatos (carregada antes do script principal) -->
+  <script src="contacts.js"></script>
+  <!-- Script principal -->
+  <script src="script.js"></script>
+</body>
+</html>
